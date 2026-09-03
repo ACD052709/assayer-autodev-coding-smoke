@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AutoDev Control Calculator</title>
+</head>
+<body>
+  <main>
+    <h1>AutoDev Control Calculator</h1>
+
+    <label>
+      First number
+      <input id="a" type="number" value="2">
+    </label>
+
+    <label>
+      Second number
+      <input id="b" type="number" value="3">
+    </label>
+
+    <button id="calculate" type="button">Add numbers</button>
+
+    <p id="result" aria-live="polite">Result: not calculated</p>
+  </main>
+
+  <script src="./math.js"></script>
+  <script>
+    const first = document.getElementById("a");
+    const second = document.getElementById("b");
+    const result = document.getElementById("result");
+
+    document.getElementById("calculate").addEventListener("click", () => {
+      result.textContent =
+        `Result: ${window.add(Number(first.value), Number(second.value))}`;
+    });
+  </script>
+</body>
+</html>
