@@ -1,39 +1,103 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AutoDev Control Calculator</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Play thirteen free browser games, from endless merge and dodge runs to daily word puzzles and clues you can text a friend.">
+<title>Minute Arcade — Play and challenge a friend</title>
+<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="./arcade.css">
+<link rel="stylesheet" href="./club.css">
+<script src="./foundation.js" defer></script>
+<script src="./games.js" defer></script>
+<script src="./more-games.js" defer></script>
+<script type="module" src="./arcade/arcade.js"></script>
 </head>
 <body>
-  <main>
-    <h1>AutoDev Control Calculator</h1>
-
-    <label>
-      First number
-      <input id="a" type="number" value="2">
-    </label>
-
-    <label>
-      Second number
-      <input id="b" type="number" value="3">
-    </label>
-
-    <button id="calculate" type="button">Add numbers</button>
-
-    <p id="result" aria-live="polite">Result: not calculated</p>
-  </main>
-
-  <script src="./math.js"></script>
-  <script>
-    const first = document.getElementById("a");
-    const second = document.getElementById("b");
-    const result = document.getElementById("result");
-
-    document.getElementById("calculate").addEventListener("click", () => {
-      result.textContent =
-        `Result: ${window.add(Number(first.value), Number(second.value))}`;
-    });
-  </script>
+<a class="skip" href="#main">Skip to games</a>
+<header class="wrap mast"><a href="#" class="brand"><span class="logo" aria-hidden="true">✳</span> Minute Arcade</a><nav aria-label="Games"><button type="button" id="sound-toggle" class="nav-tool" aria-pressed="true">Sound on</button><a href="#scores" class="nav-tool">Rankings</a><a href="#" data-route="home" class="home-link">All games</a></nav></header>
+<aside id="ad-game" class="ad-space wrap" aria-label="Advertisement" hidden></aside>
+<main id="main" class="wrap">
+<section id="home">
+  <div class="intro"><h1>Thirteen games.<br><em>One quick break.</em></h1><p>Play solo or challenge a friend. Every game can earn Arcade Points and open more games.</p><div class="welcome-actions"><button type="button" class="button" data-tutorial>Tutorial</button><a id="welcome-account" href="#account" class="button outline">Sign in or create account</a></div><div class="club-strip"><strong><span data-points>0</span> Arcade Points</strong><span id="home-identity">Playing as a guest</span><span id="next-unlock"></span></div></div>
+  <div class="daily-pick"><div><strong>Daily challenge</strong><p id="rotation-info"></p></div><a class="button gold" id="rotation-link" href="#sum">Play today’s game</a></div>
+  <h2 class="shelf-title">Endless runs</h2>
+  <div class="cards">
+    <article class="card fuse"><div class="card-art" aria-hidden="true"><div class="fuse-art"><b>4</b><b>4</b><b>8</b></div></div><div class="card-info"><h3>Fuse Drop</h3><p>Drop a tile, line up a double, and set off a chain.</p><a href="#merge" class="button lime">Play Fuse Drop</a></div></article>
+    <article class="card slip"><div class="card-art" aria-hidden="true"><div class="road-art"><i></i><i></i><i></i><b></b></div></div><div class="card-info"><h3>Slipstream</h3><p>Find the gap in each gate. Risk a tighter line for a gold shard.</p><a href="#slipstream" class="button ice">Play Slipstream</a></div></article>
+  </div>
+  <h2 class="shelf-title">Daily word games</h2>
+  <div class="cards">
+    <article class="card lift"><div class="card-art" aria-hidden="true"><div class="lift-art"><b>C O <em>L</em> D</b><b>C O <em>R</em> D</b></div></div><div class="card-info"><h3>Letterlift</h3><p>Use the clues to climb a ladder, changing one letter per rung.</p><a href="#letterlift" class="button sky">Play Letterlift</a></div></article>
+    <article class="card thread"><div class="card-art" aria-hidden="true"><div class="thread-art"><i></i><i></i><i></i></div></div><div class="card-info"><h3>Common Thread</h3><p>Five clues share one connection. How early can you spot it?</p><a href="#thread" class="button rose">Play Common Thread</a></div></article>
+  </div>
+  <h2 class="shelf-title">Play by text</h2>
+  <article class="card dial dial-card"><div class="card-art" aria-hidden="true"><div class="dial-art"><i></i></div></div><div class="card-info"><h3>Dial Relay</h3><p>Your friend sees a clue. You know the secret number. See how close their guess lands.</p><a href="#dial" class="button apricot">Play Dial Relay</a></div></article>
+  <h2 class="shelf-title">Point unlocks</h2><div class="cards compact-cards" id="bonus-cards"></div>
+  <h2 class="shelf-title">Arcade classics</h2>
+  <div class="cards">
+    <article class="card circuit"><div class="card-art" aria-hidden="true"><div class="tile-art"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="card-info"><h3>Circuit</h3><p>Watch the signals. Repeat the sequence as it grows.</p><a href="#circuit" class="button">Play Circuit</a></div></article>
+    <article class="card orbit"><div class="card-art" aria-hidden="true"><div class="orbit-art"><i></i><i></i></div></div><div class="card-info"><h3>Orbit</h3><p>Time your lock as the satellite crosses the landing zone.</p><a href="#orbit" class="button mint">Play Orbit</a></div></article>
+    <article class="card switchyard"><div class="card-art" aria-hidden="true"><div class="switch-art"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="card-info"><h3>Switchyard</h3><p>Flip neighboring switches and turn the whole grid off.</p><a href="#switchyard" class="button gold">Play Switchyard</a></div></article>
+    <article class="card cargo"><div class="card-art" aria-hidden="true"><div class="cargo-art"><b>15</b><b>42</b><b>37</b></div></div><div class="card-info"><h3>Cargo Rush</h3><p>Sort odd and even crates before the clock runs out.</p><a href="#cargo" class="button peach">Play Cargo Rush</a></div></article>
+  </div>
+</section>
+<section id="circuit" class="game-layout" hidden>
+  <div class="game-info"><a href="#" class="back game-home">All games</a><h1>Circuit</h1><p>Watch which squares light up. When it’s your turn, tap the same squares in order. Every round adds one signal.</p><div class="scores"><div><span>Score</span><strong id="c-score">0</strong></div><div><span>Best</span><strong id="c-best">0</strong></div></div><p class="keys">Keyboard <kbd>1</kbd> through <kbd>9</kbd></p></div>
+  <div class="game-panel circuit"><p id="c-status" class="status" role="status">Ready to play?</p><div class="tiles" id="tiles" aria-label="Circuit board"></div><button id="c-start" class="button" type="button">Start Circuit</button></div>
+</section>
+<section id="orbit" class="game-layout" hidden>
+  <div class="game-info"><a href="#" class="back game-home">All games</a><h1>Orbit</h1><p>Lock on when the satellite is inside the green arc. The satellite gets faster and the landing zone shrinks. Three misses end a run.</p><div class="scores"><div><span>Score</span><strong id="o-score">0</strong></div><div><span>Best</span><strong id="o-best">0</strong></div></div><p class="keys">Keyboard <kbd>Space</kbd> to lock</p></div>
+  <div class="game-panel orbit"><p id="o-status" class="status" role="status">Ready to play?</p><div class="orbit-stage"><svg viewBox="0 0 300 300" aria-label="Satellite moving around a ring with a landing zone" role="img"><circle cx="150" cy="150" r="119" class="track"/><circle cx="150" cy="150" r="85" class="inner"/><path d="M150 43v11 M150 246v11 M43 150h11 M246 150h11" class="marks"/><path id="target" class="target"/><circle id="satellite" cx="269" cy="150" r="8" class="satellite"/></svg><div class="lives"><strong id="o-lives">3</strong><span>lives</span></div></div><button id="o-start" class="button mint" type="button">Start Orbit</button></div>
+</section>
+<section id="switchyard" class="game-layout" hidden>
+  <div class="game-info"><a href="#" class="back game-home">All games</a><h1>Switchyard</h1><p>Turn every light off. Each switch also flips the lights directly above, below, left, and right of it.</p><div class="scores"><div><span>Moves</span><strong id="s-moves">0</strong></div><div><span>Fewest moves</span><strong id="s-best">—</strong></div></div></div>
+  <div class="game-panel switchyard"><p id="s-status" class="status" role="status">Turn off all the lights.</p><div id="switches" class="tiles switches" aria-label="Switchyard board"></div><div class="game-actions"><button type="button" id="s-reset" class="button outline">Reset puzzle</button><button type="button" id="s-new" class="button gold">New puzzle</button></div></div>
+</section>
+<section id="cargo" class="game-layout" hidden>
+  <div class="game-info"><a href="#" class="back game-home">All games</a><h1>Cargo Rush</h1><p>Send each crate to the odd or even bin. Correct streaks earn bonus points. A mistake breaks the streak and costs one second.</p><div class="scores"><div><span>Score</span><strong id="g-score">0</strong></div><div><span>Best</span><strong id="g-best">0</strong></div></div><p class="keys">Keyboard <kbd>Left</kbd> for odd, <kbd>Right</kbd> for even</p></div>
+  <div class="game-panel cargo"><p id="g-status" class="status" role="status">Sort as many crates as you can in 25 seconds.</p><div class="cargo-readout"><div class="timer"><span>Time left</span><strong id="g-time">25.0</strong></div><div id="g-crate" class="crate" aria-live="off">—</div><div class="timer"><span>Streak</span><strong id="g-streak">0</strong></div></div><div class="game-actions sorting"><button type="button" id="g-odd" class="button outline" disabled>Odd</button><button type="button" id="g-even" class="button outline" disabled>Even</button></div><button type="button" id="g-start" class="button peach">Start sorting</button></div>
+</section>
+<section id="merge" class="game-layout extended" hidden>
+  <div class="game-info"><a href="#" class="back game-home">All games</a><h1>Fuse Drop</h1><p>Tap a column to drop the tile. A matching tile below or beside it fuses into a double. Chain matches in one drop for bonus points. Hold one tile aside to use it later.</p>
+    <div class="scores"><div><span>Score</span><strong id="m-score">0</strong></div><div><span>Best</span><strong id="m-best">0</strong></div></div>
+    <p class="keys">Keyboard <kbd>1</kbd> through <kbd>5</kbd> to drop</p><p class="challenge" id="m-target" hidden></p></div>
+  <div class="game-panel fuse"><div class="fuse-stats"><span>Highest tile <strong id="m-peak">—</strong></span><span>Longest chain <strong id="m-chain">0</strong></span></div><div class="queue"><span>Dropping <b id="m-now">2</b></span><span>Next <b id="m-next">2</b></span></div>
+    <div class="merge-board" id="m-board" role="group" aria-label="Choose a column"></div><p id="m-status" class="status" role="status"></p>
+    <div class="game-actions"><button class="button lime" id="m-hold" type="button">Hold tile</button><button class="button outline" id="m-new" type="button">New run</button></div>
+    <div class="share-slot" id="m-share"></div></div>
+</section>
+<section id="slipstream" class="game-layout extended" hidden>
+  <div class="game-info"><a href="#" class="back game-home">All games</a><h1>Slipstream</h1><p>Steer through the gaps. Each gate earns one point and a gold shard adds two. The course speeds up as you go.</p>
+    <div class="scores"><div><span>Score</span><strong id="d-score">0</strong></div><div><span>Best</span><strong id="d-best">0</strong></div></div>
+    <p class="keys">Keyboard <kbd>←</kbd> <kbd>→</kbd> to steer, <kbd>P</kbd> to pause</p><p class="challenge" id="d-target" hidden></p></div>
+  <div class="game-panel slip"><div class="run-hud"><strong>Score <span id="d-hud">0</span></strong><span id="d-bonus" role="status"></span></div><div class="road-frame"><canvas id="d-road" width="360" height="350" role="img" aria-label="Five-lane road. Steer the blue ship through open gates."></canvas><div class="road-cover" id="d-cover"><b id="d-cover-title">Ready to run?</b><span id="d-cover-text">Tap a lane or use the steering buttons.</span></div></div>
+    <div class="steering"><button type="button" id="d-left" class="button outline" aria-label="Steer left">Left</button><button type="button" id="d-action" class="button ice">Start run</button><button type="button" id="d-right" class="button outline" aria-label="Steer right">Right</button></div>
+    <p id="d-status" class="status" role="status">Five lanes. Find an opening.</p><div class="share-slot" id="d-share"></div></div>
+</section>
+<section id="letterlift" class="game-layout extended" hidden>
+  <div class="game-info"><a href="#" class="back game-home">All games</a><h1>Letterlift</h1><p>Change one letter at a time to reach the last word. Each clue describes the next rung. Try to solve the ladder without a hint.</p><p class="edition" id="l-edition"></p></div>
+  <div class="game-panel lift word-panel"><ol id="l-ladder" class="ladder" aria-label="Word ladder"></ol>
+    <form id="l-form" class="word-form"><label for="l-answer" id="l-clue"></label><div class="answer-row"><input id="l-answer" type="text" maxlength="4" aria-describedby="l-status" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Four-letter answer" enterkeyhint="go"><button class="button sky" type="submit">Enter word</button></div></form>
+    <p id="l-status" class="status" role="status"></p><div class="game-actions"><button id="l-hint" type="button" class="button outline">Show a hint</button><button id="l-practice" type="button" class="button outline">Practice puzzle</button><a id="l-daily" href="#letterlift" class="back" hidden>Today’s puzzle</a></div>
+    <div class="share-slot" id="l-share"></div></div>
+</section>
+<section id="thread" class="game-layout extended" hidden>
+  <div class="game-info"><a href="#" class="back game-home">All games</a><h1>Common Thread</h1><p>Choose the connection that fits all five clues. You can guess early or uncover another clue. Fewer clues earn more points.</p><p class="edition" id="t-edition"></p></div>
+  <div class="game-panel thread word-panel"><ol class="clue-list" id="t-clues" aria-label="Connection clues"></ol><div class="thread-choices" id="t-choices" role="group" aria-label="Choose the connection"></div>
+    <p id="t-status" class="status" role="status"></p><div class="game-actions"><button id="t-next" type="button" class="button rose">Reveal next clue</button><button id="t-practice" type="button" class="button outline">Practice puzzle</button><a id="t-daily" href="#thread" class="back" hidden>Today’s puzzle</a></div>
+    <div class="share-slot" id="t-share"></div></div>
+</section>
+<section id="dial" class="game-layout extended" hidden>
+  <div class="game-info"><a href="#" class="back game-home">All games</a><h1>Dial Relay</h1><p>Give a friend a clue for a secret number from 1 to 10. They text a guess back. An exact match earns five points. Each step away costs one.</p></div>
+  <div class="game-panel dial word-panel"><div class="dial-widget"><div class="dial-stage" id="w-stage" aria-hidden="true"><i id="w-needle"></i></div></div><div id="w-content"></div><p class="status" id="w-status" role="status"></p></div>
+</section>
+<section id="account" class="club-view" hidden><a href="#" class="back game-home">All games</a><h1>Your player</h1><div id="account-panel" class="club-panel"></div></section>
+<section id="scores" class="club-view" hidden><a href="#" class="back game-home">All games</a><h1>Scoreboard</h1><div class="club-panel"><div class="score-summary"><strong><span data-points>0</span> Arcade Points</strong><span id="my-rank"></span></div><h2>Compare with a friend</h2><form id="friend-form"><label for="friend-name">Their public username</label><div class="answer-row"><input id="friend-name" maxlength="20" placeholder="username" autocomplete="off" required><button class="button mint" type="submit">Compare</button></div></form><p id="friend-result" role="status"></p><h2>Global leaderboard</h2><p>Public players rank by all-time points. Weekly top-percent bands use points earned during the previous Monday–Sunday, UTC.</p><ol id="rank-list"></ol><a href="#account" class="back">Manage profile and score privacy</a></div></section>
+<dialog id="tutorial-dialog" class="arcade-dialog"><div class="dialog-heading"><h2>Welcome to Minute Arcade</h2><button type="button" class="button outline" data-close>Close</button></div><p>Play these minigames solo or send them to friends to compete as often as you like, earn Arcade Points, and unlock more games.</p><p>Guest play starts immediately. An optional account saves your points across devices with a unique username, a password, and any nickname you like.</p><button type="button" class="button" data-close>Pick a game</button></dialog>
+<dialog id="demo-dialog" class="arcade-dialog"><div class="dialog-heading"><h2 id="demo-title">Game demo</h2><button type="button" class="button outline" data-close>Close demo</button></div><div id="demo-screen"></div><p id="demo-rule"></p><div class="demo-bottom"><span id="demo-clock" role="status"></span><button id="demo-replay" type="button" class="button outline" hidden>Replay demo</button></div></dialog>
+</main>
+<aside id="ad-home" class="ad-space wrap" aria-label="Advertisement" hidden></aside>
+<footer class="wrap foot"><span>Minute Arcade</span><span>Game records on this device · <a href="./privacy.html">Privacy</a></span></footer>
 </body>
 </html>
