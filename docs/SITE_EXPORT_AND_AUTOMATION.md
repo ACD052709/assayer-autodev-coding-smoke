@@ -36,3 +36,13 @@ The original, existing ChatGPT Site is authoritative. Its source is not reconstr
 - This branch intentionally contains no autonomous production deployment workflow until the original source and target runtime are available.
 
 Notion project record: https://app.notion.com/p/4201cd0d7480819fb177d0ba86ee85ab
+
+## One-command repository creation and exact-byte original source import
+
+Once the original full source ZIP has been exported by the authenticated Minute Arcade Site/Codex context, run the following from an authorized GitHub CLI environment:
+
+    bash scripts/create-dedicated-repo.sh /path/to/original-site-export.zip ACD052709/minute-arcade
+
+The command creates a new private repository, stages the original source ZIP without modifying backend files, generates per-file SHA-256 hashes, rejects unsafe paths and common secret-file names, imports the original files, verifies the bytes and commits to main. It refuses to overwrite an existing repository. It does **not** migrate server records or change the working production domain. The available GitHub connector can write branches/files but lacks repository creation; no authenticated GitHub CLI session is available from this chat at present.
+
+The GitHub CI verifies the importer against a synthetic archive (including a backend file), detects tampering and path traversal, and checks 20 public frontend files. Deployment pipeline configuration awaits the original code's actual runtime and storage model.

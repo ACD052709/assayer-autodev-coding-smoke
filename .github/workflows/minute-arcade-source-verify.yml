@@ -29,8 +29,8 @@ jobs:
           python-version: "3.12"
       - name: Validate public source and dependencies
         run: node scripts/verify-recovered-frontend.mjs
-      - name: Compile original-export importer
-        run: python -m py_compile scripts/stage-site-export.py
+      - name: Test ZIP importer and exact-byte verification
+        run: python scripts/test-site-import.py
       - name: Read-only check of current site (optional)
         if: github.event_name == 'workflow_dispatch' && inputs.live_readonly_smoke
         run: node scripts/smoke-site.mjs https://minute-arcade.com
