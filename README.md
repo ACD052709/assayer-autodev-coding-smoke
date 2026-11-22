@@ -24,3 +24,7 @@ This branch contains an exact snapshot of the public HTML, CSS and JavaScript se
 3. Run end-to-end tests for all 13 games and account/score flows on staging.
 4. Create a dedicated Minute Arcade repository and move these files there before introducing a new deployment pipeline.
 5. Only switch DNS after testing; preserve the currently working site until the replacement is complete.
+
+## Prepared launch improvements (not yet deployed)
+
+The follow-up commit adds canonical metadata, website icons, the installable-web-app manifest, robots.txt, and sitemap.xml to this GitHub branch. These are **not live** on https://minute-arcade.com until the corresponding files are published through the real Site editor or a fully tested replacement deployment. The manifest does not implement offline support. AdSense ads.txt intentionally remains absent because no verified publisher ID is available.
