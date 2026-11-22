@@ -1,0 +1,36 @@
+name: Minute Arcade — validate recovered source
+
+on:
+  push:
+    branches:
+      - "minute-arcade-source-snapshot-*"
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      live_readonly_smoke:
+        description: "Also verify the existing website via safe GET requests"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate public source and dependencies
+        run: node scripts/verify-recovered-frontend.mjs
+      - name: Compile original-export importer
+        run: python -m py_compile scripts/stage-site-export.py
+      - name: Read-only check of current site (optional)
+        if: github.event_name == 'workflow_dispatch' && inputs.live_readonly_smoke
+        run: node scripts/smoke-site.mjs https://minute-arcade.com
